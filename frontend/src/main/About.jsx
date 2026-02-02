@@ -1,13 +1,10 @@
-import { Target,Rocket, Users, Award, Globe, Shield, Zap } from "lucide-react";
+import { Target,Rocket, Users, Globe, Shield, Zap } from "lucide-react";
 
 export default function About() {
     document.title = "About Us - TalkFlow";
     return (
         <section id="about" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/30 to-white" />
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38b6ff]/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#004aad]/30 to-transparent" />
                 <div className="absolute inset-0 opacity-5"
                     style={{
                         backgroundImage: `linear-gradient(to right, #38b6ff 1px, transparent 1px),
@@ -20,7 +17,7 @@ export default function About() {
                 <div className="text-center mb-20">
                     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
                         <span className="text-gray-900">Redefining </span>
-                        <span className="bg-gradient-to-r from-[#004aad] via-[#38b6ff] to-[#004aad] bg-clip-text text-transparent">
+                        <span className="text-[#004aad]">
                             Digital Communication
                         </span>
                     </h2>
@@ -31,7 +28,7 @@ export default function About() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
                     <div className="group relative p-8 rounded-3xl border border-gray-100 bg-white hover:border-[#38b6ff]/30 transition-all duration-500 hover:shadow-2xl">
                         <div className="absolute -top-4 left-8">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#38b6ff] to-[#004aad] flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-xl bg-[#38b6ff] flex items-center justify-center">
                                 <Target className="h-6 w-6 text-white" />
                             </div>
                         </div>
@@ -56,7 +53,7 @@ export default function About() {
                     </div>
                     <div className="group relative p-8 rounded-3xl border border-gray-100 bg-white hover:border-[#004aad]/30 transition-all duration-500 hover:shadow-2xl">
                         <div className="absolute -top-4 left-8">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#004aad] to-[#38b6ff] flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-xl bg-[#004aad] flex items-center justify-center">
                                 <Rocket className="h-6 w-6 text-white" />
                             </div>
                         </div>
@@ -90,33 +87,33 @@ export default function About() {
                                 icon: <Shield className="h-8 w-8" />,
                                 title: "Security First",
                                 description: "Privacy isn't optional—it's our foundation.",
-                                color: "from-[#004aad] to-[#38b6ff]"
+                                color: "[#004aad]"
                             },
                             {
                                 icon: <Zap className="h-8 w-8" />,
                                 title: "Speed & Reliability",
                                 description: "Instant communication without compromise.",
-                                color: "from-[#38b6ff] to-[#004aad]"
+                                color: "[#004aad]"
                             },
                             {
                                 icon: <Users className="h-8 w-8" />,
                                 title: "User-Centric",
                                 description: "Designed with real people in mind.",
-                                color: "from-[#004aad] to-[#38b6ff]"
+                                color: "[#004aad]"
                             },
                             {
                                 icon: <Globe className="h-8 w-8" />,
                                 title: "Global Impact",
                                 description: "Building bridges across cultures.",
-                                color: "from-[#38b6ff] to-[#004aad]"
+                                color: "[#004aad]"
                             }
                         ].map((value, index) => (
                             <div
                                 key={index}
                                 className="group p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-105"
                             >
-                                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${value.color}/10 mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                                    <div className={`bg-gradient-to-br ${value.color} bg-clip-text text-white`}>
+                                <div className={`w-14 h-14 rounded-xl bg-${value.color} mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                                    <div className='text-white'>
                                         {value.icon}
                                     </div>
                                 </div>
@@ -126,7 +123,7 @@ export default function About() {
                         ))}
                     </div>
                 </div>
-                <div className="mb-20">
+                {/* <div className="mb-20">
                     <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
                         Our Journey
                     </h3>
@@ -166,7 +163,7 @@ export default function About() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </section>
     );

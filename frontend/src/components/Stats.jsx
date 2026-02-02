@@ -1,4 +1,4 @@
-import { Users, Globe, Zap} from "lucide-react";
+import { Users, Globe, Zap } from "lucide-react";
 
 export default function Stats() {
   return (
@@ -32,6 +32,7 @@ export default function Stats() {
             Join millions of users who trust TalkFlow for their communication needs
           </p>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {[
             {
@@ -40,7 +41,7 @@ export default function Stats() {
               label: "Active Users",
               description: "Global community growing daily",
               gradient: "from-[#38b6ff] to-[#004aad]",
-              delay: "0"
+              delay: "0",
             },
             {
               icon: <Zap className="h-8 w-8" />,
@@ -48,7 +49,7 @@ export default function Stats() {
               label: "Uptime",
               description: "Industry-leading reliability",
               gradient: "from-[#004aad] to-[#38b6ff]",
-              delay: "100"
+              delay: "100",
             },
             {
               icon: <Globe className="h-8 w-8" />,
@@ -56,7 +57,7 @@ export default function Stats() {
               label: "Countries",
               description: "Worldwide coverage",
               gradient: "from-[#38b6ff] to-[#004aad]",
-              delay: "200"
+              delay: "200",
             },
           ].map((stat, index) => (
             <div
@@ -65,49 +66,28 @@ export default function Stats() {
               style={{ animationDelay: `${stat.delay}ms` }}
             >
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white via-white to-blue-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-              <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 bg-gradient-to-br ${stat.gradient}/10 group-hover:scale-110 transition-transform duration-300`}>
-                <div className={`bg-gradient-to-br ${stat.gradient} bg-clip-text text-white`}>
+
+              <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 bg-gradient-to-br ${stat.gradient} opacity-10 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`bg-gradient-to-br ${stat.gradient} bg-clip-text text-transparent`}>
                   {stat.icon}
                 </div>
               </div>
+
               <h3 className={`text-4xl lg:text-5xl font-bold bg-gradient-to-br ${stat.gradient} bg-clip-text text-transparent mb-2`}>
                 {stat.value}
               </h3>
-              <p className="text-xl font-semibold text-gray-900 mb-2">{stat.label}</p>
-              <p className="text-gray-600">{stat.description}</p>
+
+              <p className="text-xl font-semibold text-gray-900 mb-2">
+                {stat.label}
+              </p>
+
+              <p className="text-gray-600">
+                {stat.description}
+              </p>
             </div>
           ))}
         </div>
       </div>
-      <style jsx global>{`
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0.5;
-          }
-          50% {
-            transform: translateY(-20px) rotate(180deg);
-            opacity: 1;
-          }
-        }
-        .animate-slide-up {
-          animation: slide-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        .animate-float {
-          animation: float ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }

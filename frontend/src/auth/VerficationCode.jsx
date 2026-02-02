@@ -1,13 +1,17 @@
 import { useState, useRef, useEffect } from "react";
-import { ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft, Clock, MessageCircle } from "lucide-react";
+import { FaUser } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { setSuccessMessage, setWarnningMessage } from "../data/ChatSlice";
+import { useDispatch } from "react-redux";
 
 export default function VerificationCode() {
     const [code, setCode] = useState(["", "", "", "", "", ""]);
-    const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
+    const [timeLeft, setTimeLeft] = useState(300);
     const [isResending, setIsResending] = useState(false);
     const inputsRef = useRef([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
     const email = location.state?.email || "your email";
 
@@ -15,7 +19,6 @@ export default function VerificationCode() {
         const timer = setInterval(() => {
             setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
         }, 1000);
-
         return () => clearInterval(timer);
     }, []);
 
@@ -31,11 +34,9 @@ export default function VerificationCode() {
 
     const handleChange = (index, value) => {
         if (value.length > 1) return;
-
         const newCode = [...code];
         newCode[index] = value;
         setCode(newCode);
-
         if (value && index < 5) {
             inputsRef.current[index + 1]?.focus();
         }
@@ -51,44 +52,68 @@ export default function VerificationCode() {
         e.preventDefault();
         const verificationCode = code.join("");
         if (verificationCode.length === 6) {
-            
             navigate("/reset-password", { state: { email, code: verificationCode } });
         }
     };
 
     const handleResendCode = async () => {
         setIsResending(true);
-        
+        await new Promise(resolve => setTimeout(resolve, 1000));
         setTimeLeft(300);
         setIsResending(false);
+        dispatch(setSuccessMessage("Verification code resent successfully"));
     };
 
     const isCodeComplete = code.every(digit => digit !== "");
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-blue-50 via-white to-blue-50">
-            <div className="w-full max-w-md">
-                <div className="text-center mb-10">
-                    <div className="flex justify-center mb-6">
-                        <div className="relative">
-                            <img src="/images/TalkFlow1.png"
-                                className="h-16 w-16"
-                                alt="TalkFlow Logo"
-                            />
-                            <div
-                                className="absolute inset-0 -z-10 rounded-full opacity-20 blur-sm"
-                                style={{ backgroundColor: "#004aad" }}
-                            />
+        <div className="min-h-screen flex bg-gradient-to-br from-white via-blue-50 to-indigo-50">
+            <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-600 to-blue-800" />
+                <div className="absolute inset-0 bg-[url('/images/bg.png')] bg-cover bg-center mix-blend-overlay opacity-20" />
+                <div className="relative z-10 w-full p-12 flex flex-col justify-between">
+                    <div className="flex items-center space-x-3">
+                        <img src="/images/TalkFlow4.png" alt="img" className="w-10" />
+                        <span className="text-2xl font-bold text-white">TalkFlow</span>
+                    </div>
+                    <div className="max-w-md">
+                        <h2 className="text-4xl font-bold text-white mb-6">Verify Your Identity</h2>
+                        <p className="text-blue-100 text-lg">
+                            Enter the 6-digit verification code sent to your email to securely reset your password.
+                        </p>
+                        <div className="mt-10 flex items-center gap-4">
+                            <div className="flex -space-x-3">
+                                {[1, 2, 3, 4].map((i) => (
+                                    <div
+                                        key={i}
+                                        className="h-10 w-10 flex items-center justify-center rounded-full border-2 border-blue-500 bg-blue-600 text-white"
+                                    >
+                                        <FaUser className="text-lg" />
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="text-blue-200 font-medium">Join 10,000+ active users</p>
                         </div>
                     </div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        Enter Verification Code
-                    </h1>
-                    <p className="text-gray-600">
-                        We sent a 6-digit code to <span className="font-medium">{email}</span>
-                    </p>
+                    <div className="text-blue-100">
+                        <p className="text-sm">© 2024 TalkFlow. All rights reserved.</p>
+                    </div>
                 </div>
-                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            </div>
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+                <div className="w-full max-w-md">
+                    <div className="lg:hidden flex justify-center mb-8">
+                        <div className="flex items-center space-x-3">
+                            <img src="/images/TalkFlow1.png" className="w-8" alt="TalkFlow Logo"/>
+                            <span className="text-2xl font-bold text-gray-900">TalkFlow</span>
+                        </div>
+                    </div>
+                    <div className="mb-8">
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Enter Verification Code</h1>
+                        <p className="text-gray-600">
+                            We sent a 6-digit code to <span className="font-medium">{email}</span>
+                        </p>
+                    </div>
                     <form onSubmit={handleSubmit} className="space-y-8">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-4 text-center">
@@ -106,7 +131,7 @@ export default function VerificationCode() {
                                         value={digit}
                                         onChange={(e) => handleChange(index, e.target.value)}
                                         onKeyDown={(e) => handleKeyDown(index, e)}
-                                        className="w-14 h-14 text-center text-2xl font-bold rounded-lg border-2 border-gray-300 focus:border-[#38b6ff] focus:ring-2 focus:ring-[#38b6ff]/20 outline-none transition-all"
+                                        className="w-14 h-14 text-center text-2xl font-bold rounded-xl border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200"
                                     />
                                 ))}
                             </div>
@@ -120,7 +145,7 @@ export default function VerificationCode() {
                                 type="button"
                                 onClick={handleResendCode}
                                 disabled={timeLeft > 0 || isResending}
-                                className={`text-sm ${timeLeft > 0 ? 'text-gray-400' : 'text-[#004aad] hover:text-[#38b6ff]'}`}
+                                className={`text-sm ${timeLeft > 0 ? 'text-gray-400' : 'text-blue-600 hover:text-blue-500'}`}
                             >
                                 {isResending ? "Resending..." : timeLeft > 0 ? `Resend code in ${formatTime(timeLeft)}` : "Resend code"}
                             </button>
@@ -128,18 +153,15 @@ export default function VerificationCode() {
                         <button
                             type="submit"
                             disabled={!isCodeComplete}
-                            className="w-full py-3 px-4 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-                            style={{
-                                background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
-                            }}
+                            className="w-full py-3.5 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Verify Code
                         </button>
                     </form>
                     <div className="mt-8 pt-6 border-t border-gray-200">
                         <Link
-                            to="/forget-password"
-                            className="flex items-center justify-center gap-2 text-[#004aad] hover:text-[#38b6ff] transition-colors"
+                            to="/forgot-password"
+                            className="flex items-center justify-center gap-2 text-blue-600 hover:text-blue-500 transition-colors"
                         >
                             <ArrowLeft className="h-4 w-4" />
                             Use a different email

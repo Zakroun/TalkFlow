@@ -2,14 +2,18 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 export default function Header() {
+    const isAuthenticated = useSelector((s) => s.chat.isAuthenticated);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
+
     return (
         <nav className="sticky top-0 z-50 w-full bg-white shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-white/90">
             <div className="container mx-auto px-2 sm:px-4">
                 <div className="flex h-16 items-center justify-between">
-                    <div className="flex items-center gap-3 cursor-pointer" onClick={()=>navigate('/')}>
+                    <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
                         <div className="relative">
                             <img src="/images/TalkFlow1.png"
                                 className="h-8 w-8"
@@ -24,6 +28,7 @@ export default function Header() {
                             TalkFlow
                         </span>
                     </div>
+                    
                     <div className="hidden md:flex items-center gap-8">
                         <Link
                             to="/about"
@@ -43,16 +48,29 @@ export default function Header() {
                                 className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#38b6ff] to-[#004aad] transition-all duration-300 group-hover:w-full"
                             />
                         </Link>
-                        <button
-                            onClick={()=>navigate('/login')}
-                            className="px-6 py-2 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
-                            style={{
-                                background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
-                            }}
-                        >
-                            Get Started
-                        </button>
+                        {isAuthenticated ? (
+                            <button
+                                onClick={() => navigate('/chat/chats')}
+                                className="px-6 py-2 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
+                                style={{
+                                    background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
+                                }}
+                            >
+                                Go to Chat
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => navigate('/login')}
+                                className="px-6 py-2 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
+                                style={{
+                                    background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
+                                }}
+                            >
+                                Get Started
+                            </button>
+                        )}
                     </div>
+
                     <button
                         className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -61,12 +79,13 @@ export default function Header() {
                     </button>
                 </div>
             </div>
+
             {isMenuOpen && (
                 <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-xl border-t animate-slideDown">
                     <div className="container mx-auto px-4 py-4">
                         <div className="flex flex-col space-y-4">
                             <Link
-                                to="/download"
+                                to="/about"
                                 className="px-4 py-3 rounded-lg font-medium text-gray-700 hover:text-[#004aad] hover:bg-blue-50 transition-all duration-200"
                                 onClick={() => setIsMenuOpen(false)}
                                 style={{ borderLeft: "4px solid #38b6ff" }}
@@ -81,15 +100,33 @@ export default function Header() {
                             >
                                 Contact
                             </Link>
-                            <button
-                                className="px-6 py-3 mt-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg"
-                                style={{
-                                    background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
-                                }}
-                                onClick={() => navigate('/login')}
-                            >
-                                Get Started
-                            </button>
+                            {isAuthenticated ? (
+                                <button
+                                    className="px-6 py-3 mt-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg"
+                                    style={{
+                                        background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
+                                    }}
+                                    onClick={() => {
+                                        navigate('/chat/chats');
+                                        setIsMenuOpen(false);
+                                    }}
+                                >
+                                    Go to Chat
+                                </button>
+                            ) : (
+                                <button
+                                    className="px-6 py-3 mt-2 rounded-lg font-semibold text-white transition-all duration-300 hover:shadow-lg"
+                                    style={{
+                                        background: "linear-gradient(135deg, #38b6ff 0%, #004aad 100%)"
+                                    }}
+                                    onClick={() => {
+                                        navigate('/login');
+                                        setIsMenuOpen(false);
+                                    }}
+                                >
+                                    Get Started
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

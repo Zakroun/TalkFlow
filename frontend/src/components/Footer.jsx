@@ -1,17 +1,17 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FaGooglePlay } from "react-icons/fa";
 import { IoLogoAppleAppstore } from "react-icons/io5";
-import { FaXTwitter , FaFacebook,FaInstagram,FaLinkedin } from "react-icons/fa6";
+import { FaXTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer id="contact" className="relative overflow-hidden">
-      <div className="absolute inset-0 -z-10">
+      {/* <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/30 to-gray-50" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38b6ff]/30 to-transparent" />
-      </div>
+      </div> */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
@@ -112,7 +112,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="rounded-2xl bg-gradient-to-r from-[#38b6ff]/5 via-white to-[#004aad]/5 border border-gray-100 p-8 mb-12">
+        {/* <div className="rounded-2xl bg-gradient-to-r from-[#38b6ff]/5 via-white to-[#004aad]/5 border border-gray-100 p-8 mb-12">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Stay Updated
@@ -137,7 +137,7 @@ export default function Footer() {
               </button>
             </form>
           </div>
-        </div>
+        </div> */}
         <div className="pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-gray-600 text-center md:text-left">
@@ -169,11 +169,11 @@ export default function Footer() {
       </div>
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 p-3 rounded-full bg-white border border-gray-200 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 group"
+        className="fixed bottom-8 right-8 p-3 rounded-full bg-[#38b6ff] border border-gray-200 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 group"
         aria-label="Back to top"
       >
         <svg
-          className="h-6 w-6 text-gray-500 group-hover:text-[#004aad] transition-colors"
+          className="h-6 w-6 text-white transition-colors"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

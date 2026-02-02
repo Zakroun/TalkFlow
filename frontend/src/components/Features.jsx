@@ -51,7 +51,7 @@ export default function Features() {
         <div className="text-center mb-20">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6">
             <span className="text-gray-900">Features That </span>
-            <span className="bg-gradient-to-r from-[#004aad] via-[#38b6ff] to-[#004aad] bg-clip-text text-transparent">
+            <span className="text-[#004aad]">
               Transform Communication
             </span>
           </h2>
@@ -67,11 +67,10 @@ export default function Features() {
               key={index}
               className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 transition-all duration-500"
             >
-              <div className={`relative inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 bg-gradient-to-br ${feature.gradient}/10 `}>
-                <div className={`bg-gradient-to-br ${feature.gradient} bg-clip-text text-white`}>
+              <div className='relative inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 bg-[#004aad]'>
+                <div className='text-white'>
                   {feature.icon}
                 </div>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white to-transparent opacity-60" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#004aad] transition-colors duration-300">
                 {feature.title}
@@ -101,7 +100,7 @@ export default function Features() {
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#38b6ff]/10 to-[#004aad]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <div className="bg-gradient-to-br from-[#004aad] to-[#38b6ff] bg-clip-text text-black">
+                    <div className="bg-gradient-to-br from-[#004aad] to-[#38b6ff] bg-clip-text text-[#004aad]">
                       {feature.icon}
                     </div>
                   </div>
@@ -147,22 +146,6 @@ export default function Features() {
           </div>
         </div>
       </div>
-      <style jsx global>{`
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-slide-up {
-          animation: slide-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-      `}</style>
     </section>
   );
 }

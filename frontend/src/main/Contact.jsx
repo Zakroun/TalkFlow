@@ -37,30 +37,27 @@ export default function Contact() {
             title: "Email Us",
             info: "support@talkflow.com",
             subinfo: "Typically replies within 2 hours",
-            color: "from-[#38b6ff] to-[#004aad]"
+            color: "[#004aad]"
         },
         {
             icon: <Phone className="h-6 w-6" />,
             title: "Call Us",
             info: "+212 6 123456798",
             subinfo: "Mon-Fri, 9am-6pm EST",
-            color: "from-[#004aad] to-[#38b6ff]"
+            color: "[#004aad]"
         },
         {
             icon: <MapPin className="h-6 w-6" />,
             title: "Visit Us",
             info: "Rabat - Morocco",
             subinfo: "Global headquarters",
-            color: "from-[#38b6ff] to-[#004aad]"
+            color: "[#004aad]"
         }
     ];
 
     return (
         <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
             <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/30 to-white" />
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38b6ff]/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#004aad]/30 to-transparent" />
                 <div className="absolute inset-0 opacity-5"
                     style={{
                         backgroundImage: `linear-gradient(to right, #38b6ff 1px, transparent 1px),
@@ -74,7 +71,7 @@ export default function Contact() {
                 <div className="text-center mb-16">
                     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
                         <span className="text-gray-900">Let's Start a </span>
-                        <span className="bg-gradient-to-r from-[#004aad] via-[#38b6ff] to-[#004aad] bg-clip-text text-transparent">
+                        <span className="text-[#004aad]">
                             Conversation
                         </span>
                     </h2>
@@ -82,7 +79,6 @@ export default function Contact() {
                         Have questions? We're here to help. Reach out and our team will get back to you as soon as possible.
                     </p>
                 </div>
-
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <div className="space-y-8">
                         {contactInfo.map((info, index) => (
@@ -91,8 +87,8 @@ export default function Contact() {
                                 className="group p-6 rounded-2xl bg-white border border-gray-100 hover:border-[#38b6ff]/30 transition-all duration-300 hover:shadow-xl"
                             >
                                 <div className="flex items-start gap-4">
-                                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${info.color}/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                                        <div className={`bg-gradient-to-br ${info.color} bg-clip-text text-white`}>
+                                    <div className={`w-14 h-14 rounded-xl bg-${info.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                                        <div className='text-white'>
                                             {info.icon}
                                         </div>
                                     </div>
